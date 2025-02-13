@@ -3,13 +3,13 @@ package calc.operation;
 public class Summation
 {
 	private double total;
-	
+
 	public Summation(double seed)
 	{
 		this.total = seed;
 	}
 	
-	public void setTotal(double total)
+	private void setTotal(double total)
 	{
 		this.total = total;
 	}

@@ -3,7 +3,8 @@ import calc.operation.Summation;
 import calc.operation.Subtraction;
 import calc.operation.Multiplication;
 import calc.operation.Division;
-
+import calc.operation.IntegerBitwiseShiftRight;
+import calc.operation.DoubleBitwiseShiftRight;
 
 public class CalculatorEngine 
 {
@@ -39,11 +40,39 @@ public class CalculatorEngine
 	
 	public double div(double... terms)
 	{
-		Division divider = new Division(terms[0]);
-		for (int i = 1; i < terms.length; i++)
+		try
 		{
-			divider.divide(terms[i]);
+			Division divider = new Division(terms[0]);
+			
+			for (int i = 1; i < terms.length; i++)
+			{
+				if (terms[i] == 0)
+				{
+					throw new ArithmeticException("Division by zero is not possible!");
+				}
+				divider.divide(terms[i]);
+			}
+			return divider.getTotal();
 		}
-		return divider.getTotal();
+		catch (ArithmeticException e)
+		{
+			System.err.println("Error: " + e.getMessage());
+			System.exit(0);
+			return Double.NaN;
+		}
+	}
+	
+	public double intBitShift(double term, int shiftCount)
+	{
+		IntegerBitwiseShiftRight specialOperation = new IntegerBitwiseShiftRight((int) term);
+		specialOperation.bitShift(shiftCount);
+		return specialOperation.getTotal();
+	}
+	
+	public double doubleBitShift(double term, int shiftCount)
+	{
+		DoubleBitwiseShiftRight specialOperation = new DoubleBitwiseShiftRight(term);
+		specialOperation.bitShift(shiftCount);
+		return specialOperation.getTotal();
 	}
 }

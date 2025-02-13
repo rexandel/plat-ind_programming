@@ -9,7 +9,7 @@ public class Division
 		this.total = seed;
 	}
 	
-	public void setTotal(double total)
+	private void setTotal(double total)
 	{
 		this.total = total;
 	}
