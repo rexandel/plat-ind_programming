@@ -1,5 +1,7 @@
 package shapes;
 
+import management.ColorParser;
+
 import java.awt.*;
 import java.util.Arrays;
 
@@ -14,7 +16,7 @@ public abstract class Shape {
     protected Shape(double[] initialPoint) {
         setInitialPoint(initialPoint);
         setLineColor(Color.white);
-        setFillColor(Color.black);
+        setFillColor(new Color(0, 0, 0, 0));
     }
 
     protected void move(double xAxisShift, double yAxisShift) {
@@ -50,7 +52,7 @@ public abstract class Shape {
     public String toString() {
         return
                 "Initial Point: " + Arrays.toString(getInitialPoint()) + "\n" +
-                "Line Color: " + getLineColor() + "\n" +
-                "Fill Color: " + getFillColor();
+                "Line Color: " + ColorParser.getStringFromColor(getLineColor()) + "\n" +
+                "Fill Color: " + ColorParser.getStringFromColor(getFillColor());
     }
 }
