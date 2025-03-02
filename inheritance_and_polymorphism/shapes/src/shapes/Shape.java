@@ -1,6 +1,7 @@
 package shapes;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public abstract class Shape {
     protected double[] initialPoint;
@@ -43,5 +44,13 @@ public abstract class Shape {
 
     private void setFillColor(Color fillColor) {
         this.fillColor = fillColor;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Initial Point: " + Arrays.toString(getInitialPoint()) + "\n" +
+                "Line Color: " + getLineColor() + "\n" +
+                "Fill Color: " + getFillColor();
     }
 }
