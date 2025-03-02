@@ -1,7 +1,7 @@
 package shapes;
 
 public abstract class Shape {
-    private double[] initialPoint;
+    protected double[] initialPoint;
 
     protected Shape(double[] initialPoint) {
         setInitialPoint(initialPoint);
