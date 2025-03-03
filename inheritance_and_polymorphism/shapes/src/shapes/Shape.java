@@ -24,15 +24,15 @@ public abstract class Shape {
         getInitialPoint()[1] += yAxisShift;
     }
 
-    public double[] getInitialPoint() {
+    protected double[] getInitialPoint() {
         return initialPoint;
     }
 
-    public Color getLineColor() {
+    protected Color getLineColor() {
         return lineColor;
     }
 
-    public Color getFillColor() {
+    protected Color getFillColor() {
         return fillColor;
     }
 
