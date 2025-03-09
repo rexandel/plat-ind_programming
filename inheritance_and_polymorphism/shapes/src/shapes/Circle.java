@@ -17,7 +17,7 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void move(Double xAxisShift, Double yAxisShift) {
+    public void move(double xAxisShift, double yAxisShift) {
         super.move(xAxisShift, yAxisShift);
     }
 
@@ -29,15 +29,7 @@ public class Circle extends Shape {
         return 2 * Math.PI * radius;
     }
 
-    public double getRadius() {
-        return radius;
-    }
-
-    private void setRadius(Double radius) {
-        if (radius == null) {
-            throw new IllegalArgumentException("Radius cannot be null.");
-        }
-
+    private void setRadius(double radius) {
         if (radius < 0) {
             throw new IllegalArgumentException("Radius cannot be less than zero.");
         }
@@ -66,5 +58,9 @@ public class Circle extends Shape {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), radius);
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }
