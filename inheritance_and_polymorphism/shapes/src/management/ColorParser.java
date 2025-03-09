@@ -5,6 +5,10 @@ import java.util.Arrays;
 
 public class ColorParser {
     public static String getStringFromColor(Color color) {
+        if (color == null) {
+            throw new IllegalArgumentException("Color cannot be null.");
+        }
+
         int[] colorArray = getArrayFromColor(color);
         int[] rgbArray = Arrays.copyOfRange(colorArray, 0, 3);
         String colorName = getColorName(rgbArray);
@@ -44,6 +48,10 @@ public class ColorParser {
     }
 
     private static int[] getArrayFromColor(Color color) {
+        if (color == null) {
+            throw new IllegalArgumentException("Color cannot be null.");
+        }
+
         int[] colorArray = new int[4];
 
         colorArray[0] = color.getRed();
