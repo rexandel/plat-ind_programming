@@ -2,6 +2,7 @@ package shapes;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Rectangle extends Shape {
     private double[] sidePoint;
@@ -89,6 +90,20 @@ public class Rectangle extends Shape {
                 "Side Point: " + Arrays.toString(getSidePoint()) + "\n" +
                 "Length: " + getLength() + "\n" +
                 "Height: " + getHeight();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Rectangle rectangle = (Rectangle) o;
+        return Double.compare(length, rectangle.length) == 0 && Double.compare(height, rectangle.height) == 0 && Objects.deepEquals(sidePoint, rectangle.sidePoint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), Arrays.hashCode(sidePoint), length, height);
     }
 
     public double[] getSidePoint() {
