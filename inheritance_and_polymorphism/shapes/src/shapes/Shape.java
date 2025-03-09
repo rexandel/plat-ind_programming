@@ -26,40 +26,22 @@ public abstract class Shape {
         setFillColor(new Color(0, 0, 0, 0));
     }
 
-    protected void move(Double xAxisShift, Double yAxisShift) {
-        if (xAxisShift == null) {
-            xAxisShift = 0.0;
-        }
-        if (yAxisShift == null) {
-            yAxisShift = 0.0;
-        }
-        getInitialPoint()[0] += xAxisShift;
-        getInitialPoint()[1] += yAxisShift;
-    }
+    protected void move(double xAxisShift, double yAxisShift) {
+        double[] currentPoint = getInitialPoint();
 
-    protected double[] getInitialPoint() {
-        return initialPoint;
-    }
+        double newX = currentPoint[0] + xAxisShift;
+        double newY = currentPoint[1] + yAxisShift;
 
-    protected Color getLineColor() {
-        return lineColor;
-    }
-
-    protected Color getFillColor() {
-        return fillColor;
+        setInitialPoint(new double[]{newX, newY});
     }
 
     private void setInitialPoint(double[] initialPoint) {
         if (initialPoint == null) {
-            throw new IllegalArgumentException("The array cannot be null.");
+            throw new IllegalArgumentException("Array with coordinates of initial point cannot be null.");
         }
 
         if (initialPoint.length != 2) {
-            throw new IllegalArgumentException("The array must contain exactly two elements.");
-        }
-
-        if (Arrays.stream(initialPoint).anyMatch(Objects::isNull)) {
-            throw new IllegalArgumentException("The array elements cannot be null.");
+            throw new IllegalArgumentException("Array with coordinates of initial point must contain exactly two elements.");
         }
 
         this.initialPoint = initialPoint;
@@ -69,6 +51,7 @@ public abstract class Shape {
         if (lineColor == null) {
             throw new IllegalArgumentException("Line color cannot be null.");
         }
+
         this.lineColor = lineColor;
     }
 
@@ -76,6 +59,7 @@ public abstract class Shape {
         if (fillColor == null) {
             throw new IllegalArgumentException("Fill color cannot be null.");
         }
+
         this.fillColor = fillColor;
     }
 
@@ -97,10 +81,21 @@ public abstract class Shape {
 
     @Override
     public int hashCode() {
-        int result = 0;
-        result = 31 * result + (initialPoint == null ? 0 : Arrays.hashCode(initialPoint));
-        result = 31 * result + (lineColor == null ? 0 : Objects.hashCode(lineColor));
-        result = 31 * result + (fillColor == null ? 0 : Objects.hashCode(fillColor));
+        int result = Arrays.hashCode(initialPoint);
+        result += 31 * result + Objects.hashCode(lineColor);
+        result += 31 * result + Objects.hashCode(fillColor);
         return result;
+    }
+
+    protected double[] getInitialPoint() {
+        return initialPoint;
+    }
+
+    protected Color getLineColor() {
+        return lineColor;
+    }
+
+    protected Color getFillColor() {
+        return fillColor;
     }
 }
