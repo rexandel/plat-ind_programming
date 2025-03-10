@@ -16,8 +16,8 @@ public abstract class Shape {
 
     protected Shape(double[] initialPoint) {
         setInitialPoint(initialPoint);
-        setLineColor(Color.white);
-        setFillColor(new Color(0, 0, 0, 0));
+        setLineColor(Color.black);
+        setFillColor(new Color(255, 255, 255, 0));
     }
 
     protected Shape(double[] initialPoint, Color lineColor) {
@@ -67,8 +67,8 @@ public abstract class Shape {
     public String toString() {
         return
                 "Initial Point: " + Arrays.toString(getInitialPoint()) + "\n" +
-                "Line Color: " + ColorParser.getStringFromColor(getLineColor()) + "\n" +
-                "Fill Color: " + ColorParser.getStringFromColor(getFillColor());
+                "Line Color: " + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getLineColor())) + "\n" +
+                "Fill Color: " + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getFillColor()));
     }
 
     @Override

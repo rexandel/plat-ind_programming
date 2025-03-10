@@ -12,7 +12,7 @@ public class Line extends Shape {
         setSidePoint(sidePoint);
     }
 
-    public Line(double[] initialPoint, Color lineColor, double[] sidePoint) {
+    public Line(double[] initialPoint, double[] sidePoint, Color lineColor) {
         super(initialPoint, lineColor);
         setSidePoint(sidePoint);
     }
