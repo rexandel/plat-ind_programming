@@ -3,6 +3,7 @@ package management;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import color.ColorParser;
@@ -26,8 +27,9 @@ public class UserInteraction {
         System.out.println(" 1) Create Shape");
         System.out.println(" 2) Delete Shape");
         System.out.println(" 3) Display information about all shapes");
-        System.out.println(" 4) Fill array with 10 random shapes");
-        System.out.println(" 5) Exit");
+        System.out.println(" 4) Restore an example of a list consisting of 20 shapes");
+        System.out.println(" 5) Clear the list of shapes");
+        System.out.println(" 6) Exit");
         System.out.println();
 
         System.out.print("Your choice: ");
@@ -41,7 +43,7 @@ public class UserInteraction {
             try {
                 Shape newShape = inputChoiceCreateShape();
                 if (newShape != null) {
-                    shapes.add(newShape);
+                    addIfUnique(shapes, newShape);
                     waitForKeyPress();
                 }
                 else {
@@ -76,9 +78,25 @@ public class UserInteraction {
             waitForKeyPress();
         }
         else if (choice == 4) {
-            // To be added later
+            try {
+                restoreExampleList(shapes);
+                System.out.println("Example of list of shapes has been successfully restored.");
+                waitForKeyPress();
+            }
+            catch (Exception e) {
+                System.err.println("Error during restoring of example list: " + e.getMessage());
+                waitForKeyPress();
+            }
         }
         else if (choice == 5) {
+            try {
+                shapes.clear();
+            }
+            catch (Exception e) {
+                System.err.println("Error while clearing the list: " + e.getMessage());
+            }
+        }
+        else if (choice == 6) {
             System.exit(0);
         }
         else {
@@ -220,7 +238,7 @@ public class UserInteraction {
             throw new IndexOutOfBoundsException("Number cannot be less than one.");
         }
         if (number > shapes.size()) {
-            throw new IndexOutOfBoundsException("The array element with the requested number does not exist.");
+            throw new IndexOutOfBoundsException("The list element with the requested number does not exist.");
         }
 
         shapes.remove(number - 1);
@@ -233,8 +251,9 @@ public class UserInteraction {
         }
 
         for (int index = 0; index < shapes.size(); index++) {
-            System.out.println("Shape №" + (index + 1));
+            System.out.println("Shape № " + (index + 1));
             System.out.println(shapes.get(index));
+            System.out.println("------------------------");
         }
     }
 
@@ -312,5 +331,65 @@ public class UserInteraction {
         System.out.print("Press any key to continue...");
         scanner.nextLine();
         scanner.nextLine();
+    }
+
+    private void addIfUnique(ArrayList<Shape> shapes, Shape shapeToAdd) {
+        if (!shapes.contains(shapeToAdd)) {
+            shapes.add(shapeToAdd);
+            System.out.println("New shape has been added.");
+        } else {
+            System.out.println("Shape already exists in list.");
+        }
+    }
+
+    private void restoreExampleList(ArrayList<Shape> shapes) {
+        shapes.clear();
+
+        Color redLine = new Color(255, 0, 0);
+        Color blueLine = new Color(0, 0, 255);
+        Color greenLine = new Color(0, 128, 0);
+        Color magentaLine = new Color(255, 0, 255);
+        Color yellowLine = new Color(255, 255, 0);
+        Color orangeLine = new Color(255, 165, 0);
+        Color cyanLine = new Color(0, 255, 255);
+
+        Color redFill = new Color(255, 0, 0, 128);
+        Color blueFill = new Color(0, 0, 255, 128);
+        Color greenFill = new Color(0, 128, 0, 128);
+        Color yellowFill = new Color(255, 255, 0, 128);
+        Color pearlAquaFill = new Color(136, 216, 192, 128);
+        Color pinkFill = new Color(255, 192, 203, 128);
+        Color orangeFill = new Color(255, 165, 0, 128);
+
+        Rectangle simpleRect = new Rectangle(new double[]{10, 10}, new double[]{110, 60});
+        Rectangle redRect = new Rectangle(new double[]{50, 50}, new double[]{150, 150}, redLine);
+        Rectangle blueRedRect = new Rectangle(new double[]{200, 100}, new double[]{250, 200}, blueLine, redFill);
+        Rectangle greenBlueRect = new Rectangle(new double[]{300, 50}, new double[]{400, 100}, greenLine, blueFill);
+        Rectangle magentaGreenRect = new Rectangle(new double[]{100, 300}, new double[]{300, 350}, magentaLine, greenFill);
+
+        Triangle simpleTri = new Triangle(new double[]{50, 200}, new double[]{100, 300}, new double[]{0, 300});
+        Triangle redTri = new Triangle(new double[]{150, 200}, new double[]{200, 100}, new double[]{250, 200}, redLine);
+        Triangle blueYellowTri = new Triangle(new double[]{300, 200}, new double[]{350, 100}, new double[]{400, 200}, blueLine, yellowFill);
+        Triangle greenPearlAquaTri = new Triangle(new double[]{450, 300}, new double[]{400, 200}, new double[]{500, 200}, greenLine, pearlAquaFill);
+        Triangle yellowBlueTri = new Triangle(new double[]{100, 400}, new double[]{150, 350}, new double[]{200, 400}, yellowLine, blueFill);
+
+        Circle simpleCircle = new Circle(new double[]{50, 450}, 30);
+        Circle redCircle = new Circle(new double[]{150, 450}, 40, redLine);
+        Circle blueYellowCircle = new Circle(new double[]{250, 450}, 50, blueLine, yellowFill);
+        Circle greenRedCircle = new Circle(new double[]{350, 450}, 60, greenLine, redFill);
+        Circle magentaPearlAquaCircle = new Circle(new double[]{450, 450}, 70, magentaLine, yellowFill);
+
+        Line horizontalLine = new Line(new double[]{50, 550}, new double[]{250, 550});
+        Line verticalLine = new Line(new double[]{300, 500}, new double[]{300, 700}, redLine);
+        Line diagonalLine = new Line(new double[]{350, 500}, new double[]{450, 600}, blueLine, greenFill);
+        Line zigzagLine = new Line(new double[]{150, 600}, new double[]{250, 700}, greenLine, pinkFill);
+        Line curvedLine = new Line(new double[]{400, 650}, new double[]{500, 750}, cyanLine, orangeFill);
+
+        shapes.addAll(Arrays.asList(
+                simpleRect, redRect, blueRedRect, greenBlueRect, magentaGreenRect,
+                simpleTri, redTri, blueYellowTri, greenPearlAquaTri, yellowBlueTri,
+                simpleCircle, redCircle, blueYellowCircle, greenRedCircle, magentaPearlAquaCircle,
+                horizontalLine, verticalLine, diagonalLine, zigzagLine, curvedLine
+        ));
     }
 }
