@@ -23,8 +23,15 @@ public class Rectangle extends Shape {
         setHeight(Math.max(initialPoint[1], sidePoint[1]) - Math.min(initialPoint[1], sidePoint[1]));
     }
 
+    public Rectangle(double[] initialPoint, double[] sidePoint, Color lineColor, Color fillColor) {
+        super(initialPoint, lineColor, fillColor);
+        setSidePoint(sidePoint);
+        setLength(Math.max(initialPoint[0], sidePoint[0]) - Math.min(initialPoint[0], sidePoint[0]));
+        setHeight(Math.max(initialPoint[1], sidePoint[1]) - Math.min(initialPoint[1], sidePoint[1]));
+    }
+
     @Override
-    protected void move(double xAxisShift, double yAxisShift) {
+    public void move(double xAxisShift, double yAxisShift) {
         super.move(xAxisShift, yAxisShift);
 
         double[] currentPoint = getSidePoint();

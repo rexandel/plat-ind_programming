@@ -26,6 +26,12 @@ public abstract class Shape {
         setFillColor(new Color(0, 0, 0, 0));
     }
 
+    protected Shape(double[] initialPoint, Color lineColor, Color fillColor) {
+        setInitialPoint(initialPoint);
+        setLineColor(lineColor);
+        setFillColor(fillColor);
+    }
+
     protected void move(double xAxisShift, double yAxisShift) {
         double[] currentPoint = getInitialPoint();
 

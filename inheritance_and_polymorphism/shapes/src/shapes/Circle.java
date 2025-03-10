@@ -16,6 +16,11 @@ public class Circle extends Shape {
         setRadius(radius);
     }
 
+    public Circle(double[] initialPoint, double radius, Color lineColor, Color fillColor) {
+        super(initialPoint, lineColor, fillColor);
+        setRadius(radius);
+    }
+
     @Override
     public void move(double xAxisShift, double yAxisShift) {
         super.move(xAxisShift, yAxisShift);

@@ -17,17 +17,22 @@ public class Line extends Shape {
         setSidePoint(sidePoint);
     }
 
+    public Line(double[] initialPoint, double[] sidePoint, Color lineColor, Color fillColor) {
+        super(initialPoint, lineColor, fillColor);
+        setSidePoint(sidePoint);
+    }
+
     @Override
-    protected double square() {
+    public double square() {
         return 0;
     }
 
     @Override
-    protected double perimeter() {
+    public double perimeter() {
         return Math.sqrt(Math.pow(getSidePoint()[0] - getInitialPoint()[0], 2) + Math.pow(getSidePoint()[1] - getInitialPoint()[1], 2));
     }
 
-    public void setSidePoint(double[] sidePoint) {
+    private void setSidePoint(double[] sidePoint) {
         if (sidePoint == null) {
             throw new IllegalArgumentException("Array with coordinates of side point cannot be null.");
         }

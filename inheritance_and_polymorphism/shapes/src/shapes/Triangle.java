@@ -23,6 +23,12 @@ public class Triangle extends Shape {
         setSides();
     }
 
+    public Triangle(double[] initialPoint, double[] vertexPoint, double[] sidePoint, Color lineColor, Color fillColor) {
+        super(initialPoint, lineColor, fillColor);
+        setPoints(vertexPoint, sidePoint);
+        setSides();
+    }
+
     private void setPoints(double[] vertexPoint, double[] sidePoint) {
         if (Arrays.equals(vertexPoint, sidePoint) || Arrays.equals(vertexPoint, getInitialPoint()) || Arrays.equals(sidePoint, getInitialPoint())) {
             throw new IllegalArgumentException("Points should not match.");
@@ -50,29 +56,50 @@ public class Triangle extends Shape {
         setCSide(c);
     }
 
-    public void setASide(double aSide) {
-        validateSideLength(aSide);
+    private void setASide(double aSide) {
+        if (aSide < 0) {
+            throw new IllegalArgumentException("Side length cannot be less than zero.");
+        }
+
+        if (aSide == 0) {
+            throw new IllegalArgumentException("Side length cannot be zero.");
+        }
+
         this.aSide = aSide;
     }
 
-    public void setBSide(double bSide) {
-        validateSideLength(bSide);
+    private void setBSide(double bSide) {
+        if (bSide < 0) {
+            throw new IllegalArgumentException("Side length cannot be less than zero.");
+        }
+
+        if (bSide == 0) {
+            throw new IllegalArgumentException("Side length cannot be zero.");
+        }
+
         this.bSide = bSide;
     }
 
-    public void setCSide(double cSide) {
-        validateSideLength(cSide);
+    private void setCSide(double cSide) {
+        if (cSide < 0) {
+            throw new IllegalArgumentException("Side length cannot be less than zero.");
+        }
+
+        if (cSide == 0) {
+            throw new IllegalArgumentException("Side length cannot be zero.");
+        }
+
         this.cSide = cSide;
     }
 
     @Override
-    protected double square() {
+    public double square() {
         double semiPerimeter = this.perimeter() / 2;
         return Math.sqrt(semiPerimeter * (semiPerimeter - getASide()) * (semiPerimeter - getBSide()) * (semiPerimeter - getCSide()));
     }
 
     @Override
-    protected double perimeter() {
+    public double perimeter() {
         return getASide() + getBSide() +getCSide();
     }
 
@@ -143,16 +170,6 @@ public class Triangle extends Shape {
 
     public double getCSide() {
         return cSide;
-    }
-
-    private void validateSideLength(double side) {
-        if (side < 0) {
-            throw new IllegalArgumentException("Side length cannot be less than zero.");
-        }
-
-        if (side == 0) {
-            throw new IllegalArgumentException("Side length cannot be zero.");
-        }
     }
 
     private boolean arePointsCollinear(double[] initialPoint, double[] vertexPoint, double[] sidePoint) {
