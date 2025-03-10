@@ -1,6 +1,6 @@
 package shapes;
 
-import management.ColorParser;
+import color.ColorParser;
 
 import java.awt.Color;
 import java.util.Arrays;
