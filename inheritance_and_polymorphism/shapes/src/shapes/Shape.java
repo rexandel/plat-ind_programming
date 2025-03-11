@@ -72,9 +72,12 @@ public abstract class Shape {
     @Override
     public String toString() {
         return
-                "Initial Point: " + Arrays.toString(getInitialPoint()) + "\n" +
-                "Line Color: " + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getLineColor())) + "\n" +
-                "Fill Color: " + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getFillColor()));
+                "Class Name: "      + this.getClass().getSimpleName() + "\n" +
+                "Square: "          + square() + "\n" +
+                "Perimeter: "       + perimeter() + "\n" +
+                "Initial Point: "   + Arrays.toString(getInitialPoint()) + "\n" +
+                "Line Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getLineColor())) + "\n" +
+                "Fill Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getFillColor()));
     }
 
     @Override

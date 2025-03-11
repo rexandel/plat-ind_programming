@@ -29,6 +29,21 @@ public class Triangle extends Shape {
         setSides();
     }
 
+    @Override
+    public void move(double xAxisShift, double yAxisShift) {
+        super.move(xAxisShift, yAxisShift);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double newVertexX = currentVertexPoint[0] + xAxisShift;
+        double newVertexY = currentVertexPoint[1] + yAxisShift;
+        setVertexPoint(new double[]{newVertexX, newVertexY});
+
+        double[] currentSidePoint = getSidePoint();
+        double newSideX = currentSidePoint[0] + xAxisShift;
+        double newSideY = currentSidePoint[1] + yAxisShift;
+        setSidePoint(new double[]{newSideX, newSideY});
+    }
+
     private void setPoints(double[] vertexPoint, double[] sidePoint) {
         if (Arrays.equals(vertexPoint, sidePoint) || Arrays.equals(vertexPoint, getInitialPoint()) || Arrays.equals(sidePoint, getInitialPoint())) {
             throw new IllegalArgumentException("Points should not match.");

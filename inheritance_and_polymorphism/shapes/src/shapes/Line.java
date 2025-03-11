@@ -23,6 +23,11 @@ public class Line extends Shape {
     }
 
     @Override
+    public void move(double xAxisShift, double yAxisShift) {
+        super.move(xAxisShift, yAxisShift);
+    }
+
+    @Override
     public double square() {
         return 0;
     }
