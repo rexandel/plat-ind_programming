@@ -21,7 +21,7 @@ public class UserInteraction {
         scanner = new Scanner(System.in);
     }
 
-    public void outputMainMenu() {
+    public void inputMainChoice(ArrayList<Shape> shapes) {
         clearConsole();
         System.out.println("Choose an action: ");
         System.out.println(" 1) Create Shape");
@@ -33,21 +33,18 @@ public class UserInteraction {
         System.out.println();
 
         System.out.print("Your choice: ");
-    }
 
-    public void inputMainChoice(ArrayList<Shape> shapes) {
         int choice = scanner.nextInt();
         if (choice == 1) {
-            outputMenuCreateShape();
-
             try {
                 Shape newShape = inputChoiceCreateShape();
-                if (newShape != null) {
+                try {
                     addIfUnique(shapes, newShape);
                     waitForKeyPress();
                 }
-                else {
-                    outputMainMenu();
+                catch (Exception e) {
+                    System.err.println("Error during adding a shape to the list: " + e.getMessage());
+                    waitForKeyPress();
                 }
             }
             catch (Exception e) {
@@ -56,8 +53,6 @@ public class UserInteraction {
             }
         }
         else if (choice == 2) {
-            outputMenuDeleteShape(shapes);
-
             try {
                 if (shapes.isEmpty()) {
                     waitForKeyPress();
@@ -74,8 +69,14 @@ public class UserInteraction {
             }
         }
         else if (choice == 3) {
-            outputAllShapes(shapes);
-            waitForKeyPress();
+            try {
+                showAllShapes(shapes);
+                waitForKeyPress();
+            }
+            catch (Exception e) {
+                System.err.println("Error during showing all shapes: " + e.getMessage());
+                waitForKeyPress();
+            }
         }
         else if (choice == 4) {
             try {
@@ -91,6 +92,8 @@ public class UserInteraction {
         else if (choice == 5) {
             try {
                 shapes.clear();
+                System.out.println("List of shapes was cleared successfully.");
+                waitForKeyPress();
             }
             catch (Exception e) {
                 System.err.println("Error while clearing the list: " + e.getMessage());
@@ -98,6 +101,8 @@ public class UserInteraction {
         }
         else if (choice == 6) {
             System.exit(0);
+            System.out.println("You have chosen to exit the app.");
+            waitForKeyPress();
         }
         else {
             System.out.println("Incorrect choice.");
@@ -192,7 +197,7 @@ public class UserInteraction {
         }
     }
 
-    private void outputMenuCreateShape() {
+    private Shape inputChoiceCreateShape() {
         clearConsole();
         System.out.println("Choose s shape to create: ");
         System.out.println(" 1) Circle");
@@ -203,9 +208,7 @@ public class UserInteraction {
         System.out.println();
 
         System.out.print("Your choice: ");
-    }
 
-    private Shape inputChoiceCreateShape() {
         int choice = scanner.nextInt();
 
         switch (choice) {
@@ -222,123 +225,37 @@ public class UserInteraction {
         }
     }
 
-    private void outputMenuDeleteShape(ArrayList<Shape> shapes) {
-        outputAllShapes(shapes);
+    private void inputChoiceDeleteShape(ArrayList<Shape> shapes) {
+        showAllShapes(shapes);
 
         if (!shapes.isEmpty()) {
             System.out.println();
             System.out.print("Input number of shape: ");
+
+            int number = scanner.nextInt();
+
+            if (number < 1) {
+                throw new IndexOutOfBoundsException("Number cannot be less than one.");
+            }
+            if (number > shapes.size()) {
+                throw new IndexOutOfBoundsException("The list element with the requested number does not exist.");
+            }
+
+            shapes.remove(number - 1);
         }
     }
 
-    private void inputChoiceDeleteShape(ArrayList<Shape> shapes) {
-        int number = scanner.nextInt();
-
-        if (number < 1) {
-            throw new IndexOutOfBoundsException("Number cannot be less than one.");
-        }
-        if (number > shapes.size()) {
-            throw new IndexOutOfBoundsException("The list element with the requested number does not exist.");
-        }
-
-        shapes.remove(number - 1);
-    }
-
-    private void outputAllShapes(ArrayList<Shape> shapes) {
+    private void showAllShapes(ArrayList<Shape> shapes) {
         System.out.println("--- List of shapes ---");
         if (shapes.isEmpty()) {
             System.out.println("List of shapes is empty");
         }
-
-        for (int index = 0; index < shapes.size(); index++) {
-            System.out.println("Shape № " + (index + 1));
-            System.out.println(shapes.get(index));
-            System.out.println("------------------------");
-        }
-    }
-
-    private Circle createCircle() {
-        System.out.println("--- Creating circle ---");
-        double[] initialPoint = inputPoint("initial point");
-        Color lineColor = inputColor();
-        double radius = inputRadius();
-
-        try {
-            return new Circle(initialPoint, radius, lineColor);
-        }
-        catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private Rectangle createRectangle() {
-        System.out.println("--- Creating rectangle ---");
-        double[] initialPoint = inputPoint("initial point");
-        double[] sidePoint = inputPoint("side point");
-        Color lineColor = inputColor();
-
-        try {
-            return new Rectangle(initialPoint, sidePoint, lineColor);
-        }
-        catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private Line createLine() {
-        System.out.println("--- Creating line ---");
-        double[] initialPoint = inputPoint("initial point");
-        double[] sidePoint = inputPoint("side point");
-        Color lineColor = inputColor();
-
-        try {
-            return new Line(initialPoint, sidePoint, lineColor);
-        }
-        catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private Triangle createTriangle() {
-        System.out.println("--- Creating triangle ---");
-        double[] initialPoint = inputPoint("initial point");
-        double[] vertexPoint = inputPoint("vertex point");
-        double[] sidePoint = inputPoint("side point");
-        Color lineColor = inputColor();
-
-        try {
-            return new Triangle(initialPoint, vertexPoint, sidePoint, lineColor);
-        }
-        catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private static void clearConsole() {
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        }
-        catch (IOException | InterruptedException e) {
-            System.out.println("Failed to clear console: " + e.getMessage());
-        }
-    }
-
-    private void waitForKeyPress() {
-        System.out.print("Press any key to continue...");
-        scanner.nextLine();
-        scanner.nextLine();
-    }
-
-    private void addIfUnique(ArrayList<Shape> shapes, Shape shapeToAdd) {
-        if (!shapes.contains(shapeToAdd)) {
-            shapes.add(shapeToAdd);
-            System.out.println("New shape has been added.");
-        } else {
-            System.out.println("Shape already exists in list.");
+        else {
+            for (int index = 0; index < shapes.size(); index++) {
+                System.out.println("Shape № " + (index + 1));
+                System.out.println(shapes.get(index));
+                System.out.println("------------------------");
+            }
         }
     }
 
@@ -381,9 +298,9 @@ public class UserInteraction {
 
         Line horizontalLine = new Line(new double[]{50, 550}, new double[]{250, 550});
         Line verticalLine = new Line(new double[]{300, 500}, new double[]{300, 700}, redLine);
-        Line diagonalLine = new Line(new double[]{350, 500}, new double[]{450, 600}, blueLine, greenFill);
-        Line zigzagLine = new Line(new double[]{150, 600}, new double[]{250, 700}, greenLine, pinkFill);
-        Line curvedLine = new Line(new double[]{400, 650}, new double[]{500, 750}, cyanLine, orangeFill);
+        Line diagonalLine = new Line(new double[]{350, 500}, new double[]{450, 600}, blueLine);
+        Line zigzagLine = new Line(new double[]{150, 600}, new double[]{250, 700}, greenLine);
+        Line curvedLine = new Line(new double[]{400, 650}, new double[]{500, 750}, cyanLine);
 
         shapes.addAll(Arrays.asList(
                 simpleRect, redRect, blueRedRect, greenBlueRect, magentaGreenRect,
@@ -391,5 +308,130 @@ public class UserInteraction {
                 simpleCircle, redCircle, blueYellowCircle, greenRedCircle, magentaPearlAquaCircle,
                 horizontalLine, verticalLine, diagonalLine, zigzagLine, curvedLine
         ));
+    }
+
+    private void addIfUnique(ArrayList<Shape> shapes, Shape shapeToAdd) {
+        if (!shapes.contains(shapeToAdd)) {
+            shapes.add(shapeToAdd);
+            System.out.println("New shape has been added.");
+        } else {
+            System.out.println("Shape already exists in list.");
+        }
+    }
+
+    private Circle createCircle() {
+        while (true) {
+            try {
+                System.out.println("--- Creating circle ---");
+                double[] initialPoint = inputPoint("initial point");
+                Color lineColor = inputColor();
+                double radius = inputRadius();
+
+                return new Circle(initialPoint, radius, lineColor);
+            }
+            catch (IllegalArgumentException e) {
+                System.err.println("Error while creating circle: " + e.getMessage());
+                System.out.println(" 1) Try again");
+                System.out.println(" 2) Go back to menu");
+                System.out.println();
+                System.out.print("Your choice: ");
+
+                int choice = scanner.nextInt();
+                if (choice == 2) {
+                    return null;
+                }
+            }
+        }
+    }
+
+    private Rectangle createRectangle() {
+        while (true) {
+            try {
+                System.out.println("--- Creating rectangle ---");
+                double[] initialPoint = inputPoint("initial point");
+                double[] sidePoint = inputPoint("side point");
+                Color lineColor = inputColor();
+
+                return new Rectangle(initialPoint, sidePoint, lineColor);
+            }
+            catch (IllegalArgumentException e) {
+                System.err.println("Error while creating rectangle: " + e.getMessage());
+                System.out.println(" 1) Try again");
+                System.out.println(" 2) Go back to menu");
+                System.out.println();
+                System.out.print("Your choice: ");
+
+                int choice = scanner.nextInt();
+                if (choice == 2) {
+                    return null;
+                }
+            }
+        }
+    }
+
+    private Line createLine() {
+        while (true) {
+            try {
+                System.out.println("--- Creating line ---");
+                double[] initialPoint = inputPoint("initial point");
+                double[] sidePoint = inputPoint("side point");
+                Color lineColor = inputColor();
+
+                return new Line(initialPoint, sidePoint, lineColor);
+            }
+            catch (IllegalArgumentException e) {
+                System.err.println("Error while creating line: " + e.getMessage());
+                System.out.println(" 1) Try again");
+                System.out.println(" 2) Go back to menu");
+                System.out.println();
+                System.out.print("Your choice: ");
+
+                int choice = scanner.nextInt();
+                if (choice == 2) {
+                    return null;
+                }
+            }
+        }
+    }
+
+    private Triangle createTriangle() {
+        while (true) {
+            try {
+                System.out.println("--- Creating triangle ---");
+                double[] initialPoint = inputPoint("initial point");
+                double[] vertexPoint = inputPoint("vertex point");
+                double[] sidePoint = inputPoint("side point");
+                Color lineColor = inputColor();
+
+                return new Triangle(initialPoint, vertexPoint, sidePoint, lineColor);
+            }
+            catch (IllegalArgumentException e) {
+                System.err.println("Error while creating triangle: " + e.getMessage());
+                System.out.println(" 1) Try again");
+                System.out.println(" 2) Go back to menu");
+                System.out.println();
+                System.out.print("Your choice: ");
+
+                int choice = scanner.nextInt();
+                if (choice == 2) {
+                    return null;
+                }
+            }
+        }
+    }
+
+    private static void clearConsole() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        }
+        catch (IOException | InterruptedException e) {
+            System.out.println("Failed to clear console: " + e.getMessage());
+        }
+    }
+
+    private void waitForKeyPress() {
+        System.out.print("Press any key to continue...");
+        scanner.nextLine();
+        scanner.nextLine();
     }
 }

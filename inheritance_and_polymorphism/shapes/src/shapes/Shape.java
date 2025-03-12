@@ -4,6 +4,7 @@ import color.ColorParser;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 public abstract class Shape {
@@ -23,7 +24,7 @@ public abstract class Shape {
     protected Shape(double[] initialPoint, Color lineColor) {
         setInitialPoint(initialPoint);
         setLineColor(lineColor);
-        setFillColor(new Color(0, 0, 0, 0));
+        setFillColor(new Color(255, 255, 255, 0));
     }
 
     protected Shape(double[] initialPoint, Color lineColor, Color fillColor) {
@@ -73,11 +74,11 @@ public abstract class Shape {
     public String toString() {
         return
                 "Class Name: "      + this.getClass().getSimpleName() + "\n" +
-                "Square: "          + square() + "\n" +
-                "Perimeter: "       + perimeter() + "\n" +
-                "Initial Point: "   + Arrays.toString(getInitialPoint()) + "\n" +
+                "Square: "          + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
+                "Perimeter: "       + String.format(Locale.ENGLISH, "%.2f", perimeter()) + "\n" +
                 "Line Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getLineColor())) + "\n" +
-                "Fill Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getFillColor()));
+                "Fill Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getFillColor())) + "\n" +
+                "Initial Point: "   + Arrays.toString(getInitialPoint());
     }
 
     @Override

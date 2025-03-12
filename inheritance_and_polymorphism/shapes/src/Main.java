@@ -8,9 +8,6 @@ public class Main {
         UserInteraction ui = new UserInteraction();
         ArrayList<Shape> shapes = new ArrayList<Shape>();
 
-        while (true) {
-            ui.outputMainMenu();
-            ui.inputMainChoice(shapes);
-        }
+        while (true) ui.inputMainChoice(shapes);
     }
 }
