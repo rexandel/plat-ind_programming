@@ -26,10 +26,11 @@ public class UserInteraction {
         System.out.println("Choose an action: ");
         System.out.println(" 1) Create Shape");
         System.out.println(" 2) Delete Shape");
-        System.out.println(" 3) Display information about all shapes");
-        System.out.println(" 4) Restore an example of a list consisting of 20 shapes");
-        System.out.println(" 5) Clear the list of shapes");
-        System.out.println(" 6) Exit");
+        System.out.println(" 3) Change fill color of shape");
+        System.out.println(" 4) Display information about all shapes");
+        System.out.println(" 5) Restore an example of a list consisting of 20 shapes");
+        System.out.println(" 6) Clear the list of shapes");
+        System.out.println(" 7) Exit");
         System.out.println();
 
         System.out.print("Your choice: ");
@@ -55,6 +56,7 @@ public class UserInteraction {
         else if (choice == 2) {
             try {
                 if (shapes.isEmpty()) {
+                    System.out.println("List of shapes is empty.");
                     waitForKeyPress();
                 }
                 else {
@@ -70,6 +72,23 @@ public class UserInteraction {
         }
         else if (choice == 3) {
             try {
+                if (shapes.isEmpty()) {
+                    System.out.println("List of shapes is empty.");
+                    waitForKeyPress();
+                }
+                else {
+                    inputChangeFillColorShape(shapes);
+                    System.out.println("Fill color changed successfully.");
+                    waitForKeyPress();
+                }
+            }
+            catch (Exception e) {
+                System.err.println("Error during changing shape fill color: " + e.getMessage());
+                waitForKeyPress();
+            }
+        }
+        else if (choice == 4) {
+            try {
                 showAllShapes(shapes);
                 waitForKeyPress();
             }
@@ -78,7 +97,7 @@ public class UserInteraction {
                 waitForKeyPress();
             }
         }
-        else if (choice == 4) {
+        else if (choice == 5) {
             try {
                 restoreExampleList(shapes);
                 System.out.println("Example of list of shapes has been successfully restored.");
@@ -89,20 +108,20 @@ public class UserInteraction {
                 waitForKeyPress();
             }
         }
-        else if (choice == 5) {
+        else if (choice == 6) {
             try {
                 shapes.clear();
                 System.out.println("List of shapes was cleared successfully.");
                 waitForKeyPress();
             }
             catch (Exception e) {
-                System.err.println("Error while clearing the list: " + e.getMessage());
+                System.err.println("Error during clearing the list: " + e.getMessage());
             }
         }
-        else if (choice == 6) {
-            System.exit(0);
+        else if (choice == 7) {
             System.out.println("You have chosen to exit the app.");
             waitForKeyPress();
+            System.exit(0);
         }
         else {
             System.out.println("Incorrect choice.");
@@ -242,6 +261,30 @@ public class UserInteraction {
             }
 
             shapes.remove(number - 1);
+        }
+    }
+
+    private void inputChangeFillColorShape(ArrayList<Shape> shapes) {
+        showAllShapes(shapes);
+
+        if (!shapes.isEmpty()) {
+            System.out.println();
+            System.out.print("Input number of shape: ");
+
+            int number = scanner.nextInt();
+
+            if (number < 1) {
+                throw new IndexOutOfBoundsException("Number cannot be less than one.");
+            }
+            if (number > shapes.size()) {
+                throw new IndexOutOfBoundsException("The list element with the requested number does not exist.");
+            }
+
+            Shape shapeToChange = shapes.get(number - 1);
+
+            Color fillColor = inputColor();
+
+            shapeToChange.setFillColor(fillColor);
         }
     }
 

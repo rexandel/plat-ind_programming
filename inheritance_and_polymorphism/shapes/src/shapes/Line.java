@@ -17,6 +17,11 @@ public class Line extends Shape {
         setSidePoint(sidePoint);
     }
 
+    public Line(double[] initialPoint, double[] sidePoint, Color lineColor, Color fillColor) {
+        super(initialPoint, lineColor, fillColor);
+        setSidePoint(sidePoint);
+    }
+
     @Override
     public void move(double xAxisShift, double yAxisShift) {
         super.move(xAxisShift, yAxisShift);

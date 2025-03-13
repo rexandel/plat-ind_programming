@@ -62,7 +62,7 @@ public abstract class Shape {
         this.lineColor = lineColor;
     }
 
-    private void setFillColor(Color fillColor) {
+    public void setFillColor(Color fillColor) {
         if (fillColor == null) {
             throw new IllegalArgumentException("Fill color cannot be null.");
         }
