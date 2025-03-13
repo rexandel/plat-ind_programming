@@ -8,13 +8,6 @@ public class RGBA {
     private int blue;
     private int alpha;
 
-    public RGBA(int red, int green, int blue, int alpha) {
-        setRed(red);
-        setGreen(green);
-        setBlue(blue);
-        setAlpha(alpha);
-    }
-
     public RGBA(int red, int green, int blue) {
         setRed(red);
         setGreen(green);
@@ -22,7 +15,14 @@ public class RGBA {
         setAlpha(255);
     }
 
-    public void setRed(int red) {
+    public RGBA(int red, int green, int blue, int alpha) {
+        setRed(red);
+        setGreen(green);
+        setBlue(blue);
+        setAlpha(alpha);
+    }
+
+    private void setRed(int red) {
         if (red > 255 || red < 0) {
             throw new IllegalArgumentException("The color range should be between 0 and 255.");
         }
@@ -30,7 +30,7 @@ public class RGBA {
         this.red = red;
     }
 
-    public void setGreen(int green) {
+    private void setGreen(int green) {
         if (green > 255 || green < 0) {
             throw new IllegalArgumentException("The color range should be between 0 and 255.");
         }
@@ -38,7 +38,7 @@ public class RGBA {
         this.green = green;
     }
 
-    public void setBlue(int blue) {
+    private void setBlue(int blue) {
         if (blue > 255 || blue < 0) {
             throw new IllegalArgumentException("The color range should be between 0 and 255.");
         }
@@ -46,7 +46,7 @@ public class RGBA {
         this.blue = blue;
     }
 
-    public void setAlpha(int alpha) {
+    private void setAlpha(int alpha) {
         if (alpha > 255 || alpha < 0) {
             throw new IllegalArgumentException("The color range should be between 0 and 255.");
         }

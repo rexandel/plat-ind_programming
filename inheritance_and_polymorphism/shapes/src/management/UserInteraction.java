@@ -16,12 +16,14 @@ import shapes.Triangle;
 
 public class UserInteraction {
     private Scanner scanner;
+    private ArrayList<Shape> shapes;
 
-    public UserInteraction() {
-        scanner = new Scanner(System.in);
+    public UserInteraction(ArrayList<Shape> shapes) {
+        this.scanner = new Scanner(System.in);
+        this.shapes = shapes;
     }
 
-    public void inputMainChoice(ArrayList<Shape> shapes) {
+    public void inputMainChoice() {
         clearConsole();
         System.out.println("Choose an action: ");
         System.out.println(" 1) Create Shape");
@@ -40,7 +42,7 @@ public class UserInteraction {
             try {
                 Shape newShape = inputChoiceCreateShape();
                 try {
-                    addIfUnique(shapes, newShape);
+                    addIfUnique(newShape);
                     waitForKeyPress();
                 }
                 catch (Exception e) {
@@ -60,7 +62,7 @@ public class UserInteraction {
                     waitForKeyPress();
                 }
                 else {
-                    inputChoiceDeleteShape(shapes);
+                    inputChoiceDeleteShape();
                     System.out.println("Shape was successfully deleted.");
                     waitForKeyPress();
                 }
@@ -77,7 +79,7 @@ public class UserInteraction {
                     waitForKeyPress();
                 }
                 else {
-                    inputChangeFillColorShape(shapes);
+                    inputChoiceChangeFillColorShape();
                     System.out.println("Fill color changed successfully.");
                     waitForKeyPress();
                 }
@@ -89,7 +91,7 @@ public class UserInteraction {
         }
         else if (choice == 4) {
             try {
-                showAllShapes(shapes);
+                showAllShapes();
                 waitForKeyPress();
             }
             catch (Exception e) {
@@ -99,7 +101,7 @@ public class UserInteraction {
         }
         else if (choice == 5) {
             try {
-                restoreExampleList(shapes);
+                restoreExampleList();
                 System.out.println("Example of list of shapes has been successfully restored.");
                 waitForKeyPress();
             }
@@ -244,8 +246,8 @@ public class UserInteraction {
         }
     }
 
-    private void inputChoiceDeleteShape(ArrayList<Shape> shapes) {
-        showAllShapes(shapes);
+    private void inputChoiceDeleteShape() {
+        showAllShapes();
 
         if (!shapes.isEmpty()) {
             System.out.println();
@@ -264,8 +266,8 @@ public class UserInteraction {
         }
     }
 
-    private void inputChangeFillColorShape(ArrayList<Shape> shapes) {
-        showAllShapes(shapes);
+    private void inputChoiceChangeFillColorShape() {
+        showAllShapes();
 
         if (!shapes.isEmpty()) {
             System.out.println();
@@ -288,7 +290,7 @@ public class UserInteraction {
         }
     }
 
-    private void showAllShapes(ArrayList<Shape> shapes) {
+    private void showAllShapes() {
         System.out.println("--- List of shapes ---");
         if (shapes.isEmpty()) {
             System.out.println("List of shapes is empty");
@@ -302,7 +304,7 @@ public class UserInteraction {
         }
     }
 
-    private void restoreExampleList(ArrayList<Shape> shapes) {
+    private void restoreExampleList() {
         shapes.clear();
 
         Color redLine = new Color(255, 0, 0);
@@ -353,7 +355,7 @@ public class UserInteraction {
         ));
     }
 
-    private void addIfUnique(ArrayList<Shape> shapes, Shape shapeToAdd) {
+    private void addIfUnique(Shape shapeToAdd) {
         if (!shapes.contains(shapeToAdd)) {
             shapes.add(shapeToAdd);
             System.out.println("New shape has been added.");

@@ -44,6 +44,41 @@ public class Triangle extends Shape {
         setSidePoint(new double[]{newSideX, newSideY});
     }
 
+    @Override
+    public double square() {
+        double semiPerimeter = this.perimeter() / 2;
+        return Math.sqrt(semiPerimeter * (semiPerimeter - getASide()) * (semiPerimeter - getBSide()) * (semiPerimeter - getCSide()));
+    }
+
+    @Override
+    public double perimeter() {
+        return getASide() + getBSide() +getCSide();
+    }
+
+    private void setVertexPoint(double[] vertexPoint) {
+        if (vertexPoint == null) {
+            throw new IllegalArgumentException("Array with coordinates of vertex point cannot be null.");
+        }
+
+        if (vertexPoint.length != 2) {
+            throw new IllegalArgumentException("Array with coordinates of vertex point must contain exactly two elements.");
+        }
+
+        this.vertexPoint = vertexPoint;
+    }
+
+    private void setSidePoint(double[] sidePoint) {
+        if (sidePoint == null) {
+            throw new IllegalArgumentException("Array with coordinates of side point cannot be null.");
+        }
+
+        if (sidePoint.length != 2) {
+            throw new IllegalArgumentException("Array with coordinates of side point must contain exactly two elements.");
+        }
+
+        this.sidePoint = sidePoint;
+    }
+
     private void setPoints(double[] vertexPoint, double[] sidePoint) {
         if (Arrays.equals(vertexPoint, sidePoint) || Arrays.equals(vertexPoint, getInitialPoint()) || Arrays.equals(sidePoint, getInitialPoint())) {
             throw new IllegalArgumentException("Points should not match.");
@@ -105,41 +140,6 @@ public class Triangle extends Shape {
         }
 
         this.cSide = cSide;
-    }
-
-    @Override
-    public double square() {
-        double semiPerimeter = this.perimeter() / 2;
-        return Math.sqrt(semiPerimeter * (semiPerimeter - getASide()) * (semiPerimeter - getBSide()) * (semiPerimeter - getCSide()));
-    }
-
-    @Override
-    public double perimeter() {
-        return getASide() + getBSide() +getCSide();
-    }
-
-    public void setVertexPoint(double[] vertexPoint) {
-        if (vertexPoint == null) {
-            throw new IllegalArgumentException("Array with coordinates of vertex point cannot be null.");
-        }
-
-        if (vertexPoint.length != 2) {
-            throw new IllegalArgumentException("Array with coordinates of vertex point must contain exactly two elements.");
-        }
-
-        this.vertexPoint = vertexPoint;
-    }
-
-    public void setSidePoint(double[] sidePoint) {
-        if (sidePoint == null) {
-            throw new IllegalArgumentException("Array with coordinates of side point cannot be null.");
-        }
-
-        if (sidePoint.length != 2) {
-            throw new IllegalArgumentException("Array with coordinates of side point must contain exactly two elements.");
-        }
-
-        this.sidePoint = sidePoint;
     }
 
     @Override
