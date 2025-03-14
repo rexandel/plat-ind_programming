@@ -1,2 +1,9 @@
 *.class
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
 *.drawio
+
