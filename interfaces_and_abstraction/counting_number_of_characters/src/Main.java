@@ -2,8 +2,9 @@ import utils.PrintSimulator;
 
 public class Main {
     public static void main(String[] args) {
-            PrintSimulator printSimulatorObject = new PrintSimulator("abcd", "abracadabra");
+            PrintSimulator printSimulatorObject = new PrintSimulator("abcdef", "abracadabra");
 
-            System.out.println(printSimulatorObject.getCountOfCorrectCharacters());
+            System.out.println("Your statistic:");
+            System.out.println(printSimulatorObject);
         }
 }
