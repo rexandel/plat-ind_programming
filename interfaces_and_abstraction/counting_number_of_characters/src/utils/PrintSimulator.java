@@ -8,6 +8,7 @@ public class PrintSimulator {
     public PrintSimulator(String generatedSting, String userString) {
         setGeneratedSting(generatedSting);
         setUserString(userString);
+        setCountOfCorrectCharacters(calculateCountOfCorrectCharacters());
     }
 
     public void setCountOfCorrectCharacters(int countOfCorrectCharacters) {
@@ -43,9 +44,8 @@ public class PrintSimulator {
         return userString;
     }
 
-    public void calculateCountOfCorrectCharacters() {
+    public int calculateCountOfCorrectCharacters() {
         int countOfCorrectCharacters = 0;
-
         char[] generatedArray = getGeneratedSting().toCharArray();
         char[] userArray = getUserString().toCharArray();
 
@@ -54,10 +54,7 @@ public class PrintSimulator {
                 countOfCorrectCharacters += 1;
             }
         }
-        if ((getGeneratedSting().length() - getUserString().length()) != 0) {
-            countOfCorrectCharacters -= Math.abs(getGeneratedSting().length() - getUserString().length());
-        }
 
-        setCountOfCorrectCharacters(countOfCorrectCharacters);
+        return countOfCorrectCharacters;
     }
 }
