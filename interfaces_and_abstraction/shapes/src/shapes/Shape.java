@@ -37,36 +37,36 @@ public abstract class Shape implements Movable {
     public void moveRight(double step) {
         double[] currentPoint = getInitialPoint();
 
-        double newX = currentPoint[0] + step;
+        double newInitialPointX = currentPoint[0] + step;
 
-        setInitialPoint(new double[]{newX, currentPoint[1]});
+        setInitialPoint(new double[]{newInitialPointX, currentPoint[1]});
     }
 
     @Override
     public void moveLeft(double step) {
         double[] currentPoint = getInitialPoint();
 
-        double newX = currentPoint[0] - step;
+        double newInitialPointX = currentPoint[0] - step;
 
-        setInitialPoint(new double[]{newX, currentPoint[1]});
+        setInitialPoint(new double[]{newInitialPointX, currentPoint[1]});
     }
 
     @Override
     public void moveUp(double step) {
         double[] currentPoint = getInitialPoint();
 
-        double newY = currentPoint[1] + step;
+        double newInitialPointY = currentPoint[1] + step;
 
-        setInitialPoint(new double[]{currentPoint[0], newY});
+        setInitialPoint(new double[]{currentPoint[0], newInitialPointY});
     }
 
     @Override
     public void moveDown(double step) {
         double[] currentPoint = getInitialPoint();
 
-        double newY = currentPoint[1] - step;
+        double newInitialPointY = currentPoint[1] - step;
 
-        setInitialPoint(new double[]{currentPoint[0], newY});
+        setInitialPoint(new double[]{currentPoint[0], newInitialPointY});
     }
 
     private void setInitialPoint(double[] initialPoint) {

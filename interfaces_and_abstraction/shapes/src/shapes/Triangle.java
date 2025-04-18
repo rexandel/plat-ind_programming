@@ -32,6 +32,62 @@ public class Triangle extends Shape implements Squareable {
     }
 
     @Override
+    public void moveRight(double step) {
+        super.moveRight(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointX = currentVertexPoint[0] + step;
+        double newSidePointX = currentSidePoint[0] + step;
+
+        setVertexPoint(new double[]{newVertexPointX, currentVertexPoint[1]});
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveLeft(double step) {
+        super.moveLeft(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointX = currentVertexPoint[0] - step;
+        double newSidePointX = currentSidePoint[0] - step;
+
+        setVertexPoint(new double[]{newVertexPointX, currentVertexPoint[1]});
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        super.moveUp(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointY = currentVertexPoint[1] + step;
+        double newSidePointY = currentSidePoint[1] + step;
+
+        setVertexPoint(new double[]{currentVertexPoint[0], newVertexPointY});
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        super.moveDown(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointY = currentVertexPoint[1] - step;
+        double newSidePointY = currentSidePoint[1] - step;
+
+        setVertexPoint(new double[]{currentVertexPoint[0], newVertexPointY});
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
     public double square() {
         double semiPerimeter = this.perimeter() / 2;
         return Math.sqrt(semiPerimeter * (semiPerimeter - getASide()) * (semiPerimeter - getBSide()) * (semiPerimeter - getCSide()));

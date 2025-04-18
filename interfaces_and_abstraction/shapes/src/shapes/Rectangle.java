@@ -33,6 +33,50 @@ public class Rectangle extends Shape implements Squareable {
     }
 
     @Override
+    public void moveRight(double step) {
+        super.moveRight(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointX = currentSidePoint[0] + step;
+
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveLeft(double step) {
+        super.moveLeft(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointX = currentSidePoint[0] - step;
+
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        super.moveUp(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointY = currentSidePoint[1] + step;
+
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        super.moveDown(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointY = currentSidePoint[1] - step;
+
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
     public double square() {
         return length * height;
     }
