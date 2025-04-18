@@ -1,10 +1,12 @@
 package shapes;
 
+import interfaces.Squareable;
+
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Triangle extends Shape {
+public class Triangle extends Shape implements Squareable {
     private double[] vertexPoint;
     private double[] sidePoint;
     private double aSide;
@@ -43,6 +45,7 @@ public class Triangle extends Shape {
         setSidePoint(new double[]{newSideX, newSideY});
     }
 
+    @Override
     public double square() {
         double semiPerimeter = this.perimeter() / 2;
         return Math.sqrt(semiPerimeter * (semiPerimeter - getASide()) * (semiPerimeter - getBSide()) * (semiPerimeter - getCSide()));

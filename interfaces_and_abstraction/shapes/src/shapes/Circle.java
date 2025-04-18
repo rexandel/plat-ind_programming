@@ -1,9 +1,11 @@
 package shapes;
 
+import interfaces.Squareable;
+
 import java.awt.Color;
 import java.util.Objects;
 
-public class Circle extends Shape {
+public class Circle extends Shape implements Squareable {
     private double radius;
 
     public Circle(double[] initialPoint, double radius) {
@@ -25,6 +27,7 @@ public class Circle extends Shape {
         super.move(xAxisShift, yAxisShift);
     }
 
+    @Override
     public double square() {
         return Math.PI * radius;
     }

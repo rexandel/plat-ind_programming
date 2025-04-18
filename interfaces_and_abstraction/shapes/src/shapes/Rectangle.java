@@ -1,10 +1,12 @@
 package shapes;
 
+import interfaces.Squareable;
+
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Rectangle extends Shape {
+public class Rectangle extends Shape implements Squareable {
     private double[] sidePoint;
     private double length;
     private double height;
@@ -41,6 +43,7 @@ public class Rectangle extends Shape {
         setSidePoint(new double[]{newX, newY});
     }
 
+    @Override
     public double square() {
         return length * height;
     }
