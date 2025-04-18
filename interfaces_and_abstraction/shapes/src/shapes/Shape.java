@@ -1,13 +1,14 @@
 package shapes;
 
 import color.ColorParser;
+import interfaces.Movable;
 
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class Shape {
+public abstract class Shape implements Movable {
     protected double[] initialPoint;
     protected Color lineColor;
     protected Color fillColor;
@@ -30,6 +31,42 @@ public abstract class Shape {
         setInitialPoint(initialPoint);
         setLineColor(lineColor);
         setFillColor(fillColor);
+    }
+
+    @Override
+    public void moveRight(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newX = currentPoint[0] + step;
+
+        setInitialPoint(new double[]{newX, currentPoint[1]});
+    }
+
+    @Override
+    public void moveLeft(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newX = currentPoint[0] - step;
+
+        setInitialPoint(new double[]{newX, currentPoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newY = currentPoint[1] + step;
+
+        setInitialPoint(new double[]{currentPoint[0], newY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newY = currentPoint[1] - step;
+
+        setInitialPoint(new double[]{currentPoint[0], newY});
     }
 
     private void setInitialPoint(double[] initialPoint) {
