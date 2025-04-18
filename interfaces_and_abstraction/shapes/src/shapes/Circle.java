@@ -28,6 +28,7 @@ public class Circle extends Shape implements Squareable {
         return Math.PI * radius;
     }
 
+    @Override
     public double perimeter() {
         return 2 * Math.PI * radius;
     }

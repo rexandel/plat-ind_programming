@@ -37,6 +37,7 @@ public class Rectangle extends Shape implements Squareable {
         return length * height;
     }
 
+    @Override
     public double perimeter() {
         return 2 * (length + height);
     }
