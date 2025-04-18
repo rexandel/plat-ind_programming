@@ -4,6 +4,7 @@ import interfaces.Squareable;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Triangle extends Shape implements Squareable {
@@ -189,11 +190,12 @@ public class Triangle extends Shape implements Squareable {
     public String toString() {
         return
                 super.toString() + "\n" +
+                "Square: " + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
                 "Vertex Point: " + Arrays.toString(getVertexPoint()) + "\n" +
                 "Side Point: " + Arrays.toString(getSidePoint()) + "\n" +
-                "A Side: " + getASide() + "\n" +
-                "B Side: " + getBSide() + "\n" +
-                "C Side: " + getCSide();
+                "A Side: " + String.format(Locale.ENGLISH,"%.2f", getASide()) + "\n" +
+                "B Side: " + String.format(Locale.ENGLISH,"%.2f", getBSide()) + "\n" +
+                "C Side: " + String.format(Locale.ENGLISH,"%.2f", getCSide());
     }
 
     @Override

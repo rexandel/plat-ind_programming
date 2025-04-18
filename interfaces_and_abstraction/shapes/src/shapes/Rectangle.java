@@ -4,6 +4,7 @@ import interfaces.Squareable;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Rectangle extends Shape implements Squareable {
@@ -130,6 +131,7 @@ public class Rectangle extends Shape implements Squareable {
     public String toString() {
         return
                 super.toString() + "\n" +
+                "Square: " + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
                 "Side Point: " + Arrays.toString(getSidePoint()) + "\n" +
                 "Length: " + getLength() + "\n" +
                 "Height: " + getHeight();

@@ -3,6 +3,7 @@ package shapes;
 import interfaces.Squareable;
 
 import java.awt.Color;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Circle extends Shape implements Squareable {
@@ -47,7 +48,10 @@ public class Circle extends Shape implements Squareable {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + "Radius: " + getRadius();
+        return
+                super.toString() + "\n" +
+                "Square: " + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
+                "Radius: " + getRadius();
     }
 
     @Override
