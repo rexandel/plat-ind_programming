@@ -22,10 +22,6 @@ public class Line extends Shape {
         setSidePoint(sidePoint);
     }
 
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
-    }
-
     @Override
     public double perimeter() {
         return Math.sqrt(Math.pow(getSidePoint()[0] - getInitialPoint()[0], 2) + Math.pow(getSidePoint()[1] - getInitialPoint()[1], 2));

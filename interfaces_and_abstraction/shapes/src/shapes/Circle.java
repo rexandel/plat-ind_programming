@@ -23,10 +23,6 @@ public class Circle extends Shape implements Squareable {
         setRadius(radius);
     }
 
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
-    }
-
     @Override
     public double square() {
         return Math.PI * radius;

@@ -32,17 +32,6 @@ public class Rectangle extends Shape implements Squareable {
         setHeight(Math.max(initialPoint[1], sidePoint[1]) - Math.min(initialPoint[1], sidePoint[1]));
     }
 
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
-
-        double[] currentPoint = getSidePoint();
-
-        double newX = currentPoint[0] + xAxisShift;
-        double newY = currentPoint[1] + yAxisShift;
-
-        setSidePoint(new double[]{newX, newY});
-    }
-
     @Override
     public double square() {
         return length * height;

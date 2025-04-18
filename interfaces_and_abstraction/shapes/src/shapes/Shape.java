@@ -32,15 +32,6 @@ public abstract class Shape {
         setFillColor(fillColor);
     }
 
-    protected void move(double xAxisShift, double yAxisShift) {
-        double[] currentPoint = getInitialPoint();
-
-        double newX = currentPoint[0] + xAxisShift;
-        double newY = currentPoint[1] + yAxisShift;
-
-        setInitialPoint(new double[]{newX, newY});
-    }
-
     private void setInitialPoint(double[] initialPoint) {
         if (initialPoint == null) {
             throw new IllegalArgumentException("Array with coordinates of initial point cannot be null.");
