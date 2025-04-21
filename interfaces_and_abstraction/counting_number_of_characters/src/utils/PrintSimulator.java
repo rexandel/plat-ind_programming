@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PrintSimulator {
@@ -7,12 +9,14 @@ public class PrintSimulator {
     private double percentOfCorrectCharacters;
     private String generatedSting;
     private String userString;
+    private String correctCharacters;
 
     public PrintSimulator(String generatedSting, String userString) {
         setGeneratedSting(generatedSting);
         setUserString(userString);
         setCountOfCorrectCharacters(calculateCountOfCorrectCharacters());
         setPercentOfCorrectCharacters(calculatePercentOfCorrectCharacters());
+        setCorrectCharacters(findCorrectCharacters());
     }
 
     public void setCountOfCorrectCharacters(int countOfCorrectCharacters) {
@@ -43,6 +47,10 @@ public class PrintSimulator {
         this.percentOfCorrectCharacters = percentOfCorrectCharacters;
     }
 
+    private void setCorrectCharacters(String correctCharacters) {
+        this.correctCharacters = correctCharacters;
+    }
+
     public int getCountOfCorrectCharacters() {
         return countOfCorrectCharacters;
     }
@@ -59,14 +67,25 @@ public class PrintSimulator {
         return percentOfCorrectCharacters;
     }
 
+    public String getCorrectCharacters() {
+        return correctCharacters;
+    }
+
     public int calculateCountOfCorrectCharacters() {
         int countOfCorrectCharacters = 0;
-        char[] generatedArray = getGeneratedSting().toCharArray();
-        char[] userArray = getUserString().toCharArray();
+        List<Character> generatedList = new ArrayList<>();
+        List<Character> userList = new ArrayList<>();
 
-        for (int index = 0; index < Math.min(getGeneratedSting().length(), getUserString().length()); index++) {
-            if (generatedArray[index] == userArray[index]) {
-                countOfCorrectCharacters += 1;
+        for (char c : getGeneratedSting().toCharArray()) {
+            generatedList.add(c);
+        }
+        for (char c : getUserString().toCharArray()) {
+            userList.add(c);
+        }
+
+        for (int index = 0; index < Math.min(generatedList.size(), userList.size()); index++) {
+            if (generatedList.get(index).equals(userList.get(index))) {
+                countOfCorrectCharacters++;
             }
         }
 
@@ -77,13 +96,35 @@ public class PrintSimulator {
         return ((double) getCountOfCorrectCharacters() / getGeneratedSting().length()) * 100;
     }
 
+    public String findCorrectCharacters() {
+        StringBuilder correctChars = new StringBuilder();
+        List<Character> generatedList = new ArrayList<>();
+        List<Character> userList = new ArrayList<>();
+
+        for (char c : getGeneratedSting().toCharArray()) {
+            generatedList.add(c);
+        }
+        for (char c : getUserString().toCharArray()) {
+            userList.add(c);
+        }
+
+        for (int index = 0; index < Math.min(generatedList.size(), userList.size()); index++) {
+            if (generatedList.get(index).equals(userList.get(index))) {
+                correctChars.append(generatedList.get(index));
+            }
+        }
+
+        return correctChars.toString();
+    }
+
     @Override
     public String toString() {
         return
                 "Generated string: " + getGeneratedSting() + "\n" +
-                "Your string: " + getUserString() + "\n" +
-                "Count of correct characters: " + getCountOfCorrectCharacters() + "\n" +
-                "Percent of correct characters: " + String.format("%.2f",  getPercentOfCorrectCharacters()) + "%";
+                        "Your string: " + getUserString() + "\n" +
+                        "Count of correct characters: " + getCountOfCorrectCharacters() + "\n" +
+                        "Percent of correct characters: " + String.format("%.2f",  getPercentOfCorrectCharacters()) + "%" + "\n" +
+                        "Correct characters: " + getCorrectCharacters();
     }
 
     @Override
