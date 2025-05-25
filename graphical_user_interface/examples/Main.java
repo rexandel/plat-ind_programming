@@ -11,16 +11,20 @@ public class Main {
         JButton secondButton = new JButton("Don't touch other buttons...");
         JButton thirdButton = new JButton("Hello, click on me plz");
 
+        JPanel panel = new JPanel();
+
         frame.setSize(300, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(firstLabel);
-        frame.add(secondLabel);
-        frame.add(thirdLabel);
+        panel.add(firstLabel);
+        panel.add(secondLabel);
+        panel.add(thirdLabel);
 
-        frame.add(firstButton);
-        frame.add(secondButton);
-        frame.add(thirdButton);
+        panel.add(firstButton);
+        panel.add(secondButton);
+        panel.add(thirdButton);
+
+        frame.add(panel);
 
         frame.setLocationRelativeTo(null);
 
