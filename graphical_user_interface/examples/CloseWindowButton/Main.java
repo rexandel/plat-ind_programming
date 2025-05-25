@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 class MainFrame extends JFrame {
     public MainFrame() {
@@ -10,13 +8,8 @@ class MainFrame extends JFrame {
         
         JPanel panel = new JPanel();
         JButton button = new JButton("Press me!");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
+        button.addActionListener(_ -> System.exit(0));
+        
         panel.add(button);
         add(panel);
     }
