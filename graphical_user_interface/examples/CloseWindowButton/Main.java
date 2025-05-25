@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 class MainFrame extends JFrame {
     public MainFrame() {
@@ -8,7 +10,12 @@ class MainFrame extends JFrame {
         
         JPanel panel = new JPanel();
         JButton button = new JButton("Press me!");
-        button.addActionListener(_ -> System.exit(0));
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                System.exit(0);
+            }
+        });
         
         panel.add(button);
         add(panel);
