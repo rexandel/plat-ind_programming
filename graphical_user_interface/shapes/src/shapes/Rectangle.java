@@ -1,10 +1,15 @@
 package shapes;
 
+import interfaces.ISquareable;
+import interfaces.IDrawFigure;
+
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
-public class Rectangle extends Shape {
+public class Rectangle extends Shape implements ISquareable, IDrawFigure {
     private double[] sidePoint;
     private double length;
     private double height;
@@ -31,21 +36,55 @@ public class Rectangle extends Shape {
     }
 
     @Override
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
+    public void moveRight(double step) {
+        super.moveRight(step);
 
-        double[] currentPoint = getSidePoint();
+        double[] currentSidePoint = getSidePoint();
 
-        double newX = currentPoint[0] + xAxisShift;
-        double newY = currentPoint[1] + yAxisShift;
+        double newSidePointX = currentSidePoint[0] + step;
 
-        setSidePoint(new double[]{newX, newY});
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
     }
 
+    @Override
+    public void moveLeft(double step) {
+        super.moveLeft(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointX = currentSidePoint[0] - step;
+
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        super.moveUp(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointY = currentSidePoint[1] + step;
+
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        super.moveDown(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointY = currentSidePoint[1] - step;
+
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
     public double square() {
         return length * height;
     }
 
+    @Override
     public double perimeter() {
         return 2 * (length + height);
     }
@@ -94,6 +133,7 @@ public class Rectangle extends Shape {
     public String toString() {
         return
                 super.toString() + "\n" +
+                "Square: " + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
                 "Side Point: " + Arrays.toString(getSidePoint()) + "\n" +
                 "Length: " + getLength() + "\n" +
                 "Height: " + getHeight();
@@ -123,5 +163,25 @@ public class Rectangle extends Shape {
 
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(getLineColor());
+        g.drawRect(
+            (int) getInitialPoint()[0],
+            (int) getInitialPoint()[1],
+            (int) length,
+            (int) height
+        );
+        if (getFillColor() != null) {
+            g.setColor(getFillColor());
+            g.fillRect(
+                (int) getInitialPoint()[0],
+                (int) getInitialPoint()[1],
+                (int) length,
+                (int) height
+            );
+        }
     }
 }

@@ -1,9 +1,14 @@
 package shapes;
 
+import interfaces.ISquareable;
+import interfaces.IDrawFigure;
+
 import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Locale;
 import java.util.Objects;
 
-public class Circle extends Shape {
+public class Circle extends Shape implements ISquareable, IDrawFigure {
     private double radius;
 
     public Circle(double[] initialPoint, double radius) {
@@ -22,14 +27,11 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
-    }
-
     public double square() {
         return Math.PI * radius;
     }
 
+    @Override
     public double perimeter() {
         return 2 * Math.PI * radius;
     }
@@ -48,7 +50,10 @@ public class Circle extends Shape {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" + "Radius: " + getRadius();
+        return
+                super.toString() + "\n" +
+                "Square: " + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
+                "Radius: " + getRadius();
     }
 
     @Override
@@ -67,5 +72,25 @@ public class Circle extends Shape {
 
     public double getRadius() {
         return radius;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(getLineColor());
+        g.drawOval(
+            (int) (getInitialPoint()[0] - radius),
+            (int) (getInitialPoint()[1] - radius),
+            (int) (2 * radius),
+            (int) (2 * radius)
+        );
+        if (getFillColor() != null) {
+            g.setColor(getFillColor());
+            g.fillOval(
+                (int) (getInitialPoint()[0] - radius),
+                (int) (getInitialPoint()[1] - radius),
+                (int) (2 * radius),
+                (int) (2 * radius)
+            );
+        }
     }
 }

@@ -1,10 +1,14 @@
 package shapes;
 
+import interfaces.ISquareable;
+import interfaces.IDrawFigure;
+
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
-public class Triangle extends Shape {
+public class Triangle extends Shape implements ISquareable, IDrawFigure {
     private double[] vertexPoint;
     private double[] sidePoint;
     private double aSide;
@@ -30,18 +34,59 @@ public class Triangle extends Shape {
     }
 
     @Override
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
+    public void moveRight(double step) {
+        super.moveRight(step);
 
         double[] currentVertexPoint = getVertexPoint();
-        double newVertexX = currentVertexPoint[0] + xAxisShift;
-        double newVertexY = currentVertexPoint[1] + yAxisShift;
-        setVertexPoint(new double[]{newVertexX, newVertexY});
-
         double[] currentSidePoint = getSidePoint();
-        double newSideX = currentSidePoint[0] + xAxisShift;
-        double newSideY = currentSidePoint[1] + yAxisShift;
-        setSidePoint(new double[]{newSideX, newSideY});
+
+        double newVertexPointX = currentVertexPoint[0] + step;
+        double newSidePointX = currentSidePoint[0] + step;
+
+        setVertexPoint(new double[]{newVertexPointX, currentVertexPoint[1]});
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveLeft(double step) {
+        super.moveLeft(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointX = currentVertexPoint[0] - step;
+        double newSidePointX = currentSidePoint[0] - step;
+
+        setVertexPoint(new double[]{newVertexPointX, currentVertexPoint[1]});
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        super.moveUp(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointY = currentVertexPoint[1] + step;
+        double newSidePointY = currentSidePoint[1] + step;
+
+        setVertexPoint(new double[]{currentVertexPoint[0], newVertexPointY});
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        super.moveDown(step);
+
+        double[] currentVertexPoint = getVertexPoint();
+        double[] currentSidePoint = getSidePoint();
+
+        double newVertexPointY = currentVertexPoint[1] - step;
+        double newSidePointY = currentSidePoint[1] - step;
+
+        setVertexPoint(new double[]{currentVertexPoint[0], newVertexPointY});
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
     }
 
     @Override
@@ -146,11 +191,12 @@ public class Triangle extends Shape {
     public String toString() {
         return
                 super.toString() + "\n" +
+                "Square: " + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
                 "Vertex Point: " + Arrays.toString(getVertexPoint()) + "\n" +
                 "Side Point: " + Arrays.toString(getSidePoint()) + "\n" +
-                "A Side: " + getASide() + "\n" +
-                "B Side: " + getBSide() + "\n" +
-                "C Side: " + getCSide();
+                "A Side: " + String.format(Locale.ENGLISH,"%.2f", getASide()) + "\n" +
+                "B Side: " + String.format(Locale.ENGLISH,"%.2f", getBSide()) + "\n" +
+                "C Side: " + String.format(Locale.ENGLISH,"%.2f", getCSide());
     }
 
     @Override
@@ -194,5 +240,26 @@ public class Triangle extends Shape {
                 sidePoint[0] * (initialPoint[1] - vertexPoint[1]));
 
         return Math.abs(determinant) < 1e-10;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        int[] xPoints = {
+            (int) getInitialPoint()[0],
+            (int) vertexPoint[0],
+            (int) sidePoint[0]
+        };
+        int[] yPoints = {
+            (int) getInitialPoint()[1],
+            (int) vertexPoint[1],
+            (int) sidePoint[1]
+        };
+
+        g.setColor(getLineColor());
+        g.drawPolygon(xPoints, yPoints, 3);
+        if (getFillColor() != null) {
+            g.setColor(getFillColor());
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
     }
 }

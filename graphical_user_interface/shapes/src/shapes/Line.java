@@ -1,10 +1,12 @@
 package shapes;
 
+import interfaces.IDrawFigure;
+
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Line extends Shape {
+public class Line extends Shape implements IDrawFigure {
     private double[] sidePoint;
 
     public Line(double[] initialPoint, double[] sidePoint) {
@@ -23,13 +25,47 @@ public class Line extends Shape {
     }
 
     @Override
-    public void move(double xAxisShift, double yAxisShift) {
-        super.move(xAxisShift, yAxisShift);
+    public void moveRight(double step) {
+        super.moveRight(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointX = currentSidePoint[0] + step;
+
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
     }
 
     @Override
-    public double square() {
-        return 0;
+    public void moveLeft(double step) {
+        super.moveLeft(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointX = currentSidePoint[0] - step;
+
+        setSidePoint(new double[]{newSidePointX, currentSidePoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        super.moveUp(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointY = currentSidePoint[1] + step;
+
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        super.moveDown(step);
+
+        double[] currentSidePoint = getSidePoint();
+
+        double newSidePointY = currentSidePoint[1] - step;
+
+        setSidePoint(new double[]{currentSidePoint[0], newSidePointY});
     }
 
     @Override
@@ -76,5 +112,16 @@ public class Line extends Shape {
 
     public double[] getSidePoint() {
         return sidePoint;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        g.setColor(getLineColor());
+        g.drawLine(
+            (int) getInitialPoint()[0],
+            (int) getInitialPoint()[1],
+            (int) sidePoint[0],
+            (int) sidePoint[1]
+        );
     }
 }

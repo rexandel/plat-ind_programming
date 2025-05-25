@@ -1,18 +1,18 @@
 package shapes;
 
 import color.ColorParser;
+import interfaces.IMovable;
 
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class Shape {
+public abstract class Shape implements IMovable {
     protected double[] initialPoint;
     protected Color lineColor;
     protected Color fillColor;
 
-    abstract protected double square();
     abstract protected double perimeter();
 
     protected Shape(double[] initialPoint) {
@@ -33,13 +33,40 @@ public abstract class Shape {
         setFillColor(fillColor);
     }
 
-    protected void move(double xAxisShift, double yAxisShift) {
+    @Override
+    public void moveRight(double step) {
         double[] currentPoint = getInitialPoint();
 
-        double newX = currentPoint[0] + xAxisShift;
-        double newY = currentPoint[1] + yAxisShift;
+        double newInitialPointX = currentPoint[0] + step;
 
-        setInitialPoint(new double[]{newX, newY});
+        setInitialPoint(new double[]{newInitialPointX, currentPoint[1]});
+    }
+
+    @Override
+    public void moveLeft(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newInitialPointX = currentPoint[0] - step;
+
+        setInitialPoint(new double[]{newInitialPointX, currentPoint[1]});
+    }
+
+    @Override
+    public void moveUp(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newInitialPointY = currentPoint[1] + step;
+
+        setInitialPoint(new double[]{currentPoint[0], newInitialPointY});
+    }
+
+    @Override
+    public void moveDown(double step) {
+        double[] currentPoint = getInitialPoint();
+
+        double newInitialPointY = currentPoint[1] - step;
+
+        setInitialPoint(new double[]{currentPoint[0], newInitialPointY});
     }
 
     private void setInitialPoint(double[] initialPoint) {
@@ -74,11 +101,10 @@ public abstract class Shape {
     public String toString() {
         return
                 "Class Name: "      + this.getClass().getSimpleName() + "\n" +
-                "Square: "          + String.format(Locale.ENGLISH,"%.2f", square()) + "\n" +
-                "Perimeter: "       + String.format(Locale.ENGLISH, "%.2f", perimeter()) + "\n" +
                 "Line Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getLineColor())) + "\n" +
                 "Fill Color: "      + ColorParser.getStringFromRGBA(ColorParser.getRGBAFromColor(getFillColor())) + "\n" +
-                "Initial Point: "   + Arrays.toString(getInitialPoint());
+                "Initial Point: "   + Arrays.toString(getInitialPoint()) + "\n" +
+                "Perimeter: "       + String.format(Locale.ENGLISH, "%.2f", perimeter());
     }
 
     @Override
