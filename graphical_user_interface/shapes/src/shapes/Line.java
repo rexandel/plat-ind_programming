@@ -117,7 +117,7 @@ public class Line extends Shape implements IDrawFigure {
     @Override
     public void draw(Graphics g) {
         g.setColor(getLineColor());
-        g.drawLine(
+        g.drawLine(  // drawLine(int x1, int y1, int x2, int y2)
             (int) getInitialPoint()[0],
             (int) getInitialPoint()[1],
             (int) sidePoint[0],

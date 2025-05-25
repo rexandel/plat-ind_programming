@@ -256,10 +256,10 @@ public class Triangle extends Shape implements ISquareable, IDrawFigure {
         };
 
         g.setColor(getLineColor());
-        g.drawPolygon(xPoints, yPoints, 3);
+        g.drawPolygon(xPoints, yPoints, 3);  // drawPolygon(int[] xPoints, int[] yPoints, int nPoints)
         if (getFillColor() != null) {
             g.setColor(getFillColor());
-            g.fillPolygon(xPoints, yPoints, 3);
+            g.fillPolygon(xPoints, yPoints, 3);  // fillPolygon(int[] xPoints, int[] yPoints, int nPoints)
         }
     }
 }

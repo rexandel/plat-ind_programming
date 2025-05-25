@@ -168,7 +168,7 @@ public class Rectangle extends Shape implements ISquareable, IDrawFigure {
     @Override
     public void draw(Graphics g) {
         g.setColor(getLineColor());
-        g.drawRect(
+        g.drawRect(  // drawRect(int x, int y, int width, int height)
             (int) getInitialPoint()[0],
             (int) getInitialPoint()[1],
             (int) length,
@@ -176,7 +176,7 @@ public class Rectangle extends Shape implements ISquareable, IDrawFigure {
         );
         if (getFillColor() != null) {
             g.setColor(getFillColor());
-            g.fillRect(
+            g.fillRect(  // fillRect(int x, int y, int width, int height)
                 (int) getInitialPoint()[0],
                 (int) getInitialPoint()[1],
                 (int) length,

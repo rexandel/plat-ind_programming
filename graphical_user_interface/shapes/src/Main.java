@@ -1,9 +1,6 @@
 import javax.swing.*;
 import management.UserInterface;
 
-import shapes.Shape;
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

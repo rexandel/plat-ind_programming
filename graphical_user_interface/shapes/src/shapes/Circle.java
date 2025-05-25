@@ -77,7 +77,7 @@ public class Circle extends Shape implements ISquareable, IDrawFigure {
     @Override
     public void draw(Graphics g) {
         g.setColor(getLineColor());
-        g.drawOval(
+        g.drawOval(  // drawOval(int x, int y, int width, int height)
             (int) (getInitialPoint()[0] - radius),
             (int) (getInitialPoint()[1] - radius),
             (int) (2 * radius),
@@ -85,7 +85,7 @@ public class Circle extends Shape implements ISquareable, IDrawFigure {
         );
         if (getFillColor() != null) {
             g.setColor(getFillColor());
-            g.fillOval(
+            g.fillOval(  // fillOval(int x, int y, int width, int height)
                 (int) (getInitialPoint()[0] - radius),
                 (int) (getInitialPoint()[1] - radius),
                 (int) (2 * radius),
