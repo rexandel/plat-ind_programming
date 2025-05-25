@@ -13,6 +13,25 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.*;
 
+class DrawingPanel extends JPanel {
+    private final List<IDrawFigure> shapes;
+
+    public DrawingPanel(List<IDrawFigure> shapes) {
+        this.shapes = shapes;
+        setBackground(Color.WHITE);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        synchronized (shapes) {
+            for (IDrawFigure shape : shapes) {
+                shape.draw(g);
+            }
+        }
+    }
+}
+
 public class UserInterface extends JPanel {
     private final DrawingPanel drawingPanel;
     private final List<IDrawFigure> shapes;
@@ -35,6 +54,7 @@ public class UserInterface extends JPanel {
             }
         });
 
+        // Panel for buttons & buttons & buttons actions
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 4));
 
@@ -114,25 +134,6 @@ public class UserInterface extends JPanel {
                     Color.ORANGE
                 ));
                 break;
-        }
-    }
-}
-
-class DrawingPanel extends JPanel {
-    private final List<IDrawFigure> shapes;
-
-    public DrawingPanel(List<IDrawFigure> shapes) {
-        this.shapes = shapes;
-        setBackground(Color.WHITE);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        synchronized (shapes) {
-            for (IDrawFigure shape : shapes) {
-                shape.draw(g);
-            }
         }
     }
 }

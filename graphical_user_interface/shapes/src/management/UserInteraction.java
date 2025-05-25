@@ -312,7 +312,6 @@ public class UserInteraction {
         Color greenLine = new Color(0, 128, 0);
         Color magentaLine = new Color(255, 0, 255);
         Color yellowLine = new Color(255, 255, 0);
-        Color orangeLine = new Color(255, 165, 0);
         Color cyanLine = new Color(0, 255, 255);
 
         Color redFill = new Color(255, 0, 0, 128);
@@ -320,8 +319,6 @@ public class UserInteraction {
         Color greenFill = new Color(0, 128, 0, 128);
         Color yellowFill = new Color(255, 255, 0, 128);
         Color pearlAquaFill = new Color(136, 216, 192, 128);
-        Color pinkFill = new Color(255, 192, 203, 128);
-        Color orangeFill = new Color(255, 165, 0, 128);
 
         Rectangle simpleRect = new Rectangle(new double[]{10, 10}, new double[]{110, 60});
         Rectangle redRect = new Rectangle(new double[]{50, 50}, new double[]{150, 150}, redLine);
