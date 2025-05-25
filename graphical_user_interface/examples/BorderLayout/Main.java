@@ -1,22 +1,29 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.BorderLayout;
+import javax.swing.*;
 
-class BorderTest extends JFrame {
-    BorderTest(String title) {
+class BorderPanelTest extends JFrame {
+    BorderPanelTest(String title) {
         super(title);
         setLayout(new BorderLayout());
         
-        add(new JButton("North"), BorderLayout.NORTH);
-        add(new JButton("South"), BorderLayout.SOUTH);
-        add(new JButton("West"), BorderLayout.WEST);
-        add(new JButton("East"), BorderLayout.EAST);
+        JPanel p1 = new JPanel(new BorderLayout());
         
-        JTextField tf = new JTextField("Center");
-        tf.setBackground(Color.YELLOW);
-        tf.setForeground(Color.RED);
-        tf.setHorizontalAlignment(JTextField.CENTER);
-        add(tf, BorderLayout.CENTER);
+        JPanel p2 = new JPanel();
+        JLabel label = new JLabel("This is panel p2:");
+        label.setForeground(Color.BLUE);
+        p2.add(label);
+        p2.add(new JButton("Execute"));
+        p2.add(new JButton("Cancel"));
+        p2.add(new JButton("Exit"));
+        
+        p1.add(new JTextField("Input field", 20), BorderLayout.NORTH);
+        p1.add(new JScrollPane(new JTextArea("Input area", 20, 5)), BorderLayout.CENTER);
+        p1.add(p2, BorderLayout.SOUTH);
+        p1.setBorder(BorderFactory.createEtchedBorder());
+        
+        add(p1, BorderLayout.CENTER);
+        
+        add(new JButton("Quit completely"), BorderLayout.SOUTH);
         
         setSize(400, 200);
     }
@@ -25,10 +32,10 @@ class BorderTest extends JFrame {
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            BorderTest frame = new BorderTest("BorderLayout");
+            BorderPanelTest frame = new BorderPanelTest("BorderLayout");
+            frame.setLocation(400, 200);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
-            frame.setLocationRelativeTo(null);
         });
     }
 }
