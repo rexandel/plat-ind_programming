@@ -1,5 +1,6 @@
 package shapes;
 
+import interfaces.Drawable;
 import interfaces.Squareable;
 
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Triangle extends Shape implements Squareable {
+public class Triangle extends Shape implements Squareable, Drawable {
     private double[] vertexPoint;
     private double[] sidePoint;
     private double aSide;
@@ -239,5 +240,26 @@ public class Triangle extends Shape implements Squareable {
                 sidePoint[0] * (initialPoint[1] - vertexPoint[1]));
 
         return Math.abs(determinant) < 1e-10;
+    }
+
+    @Override
+    public void draw(Graphics obj) {
+        int[] xPoints = {
+                (int) getInitialPoint()[0],
+                (int) vertexPoint[0],
+                (int) sidePoint[0]
+        };
+        int[] yPoints = {
+                (int) getInitialPoint()[1],
+                (int) vertexPoint[1],
+                (int) sidePoint[1]
+        };
+
+        obj.setColor(getLineColor());
+        obj.drawPolygon(xPoints, yPoints, 3);  // drawPolygon(int[] xPoints, int[] yPoints, int nPoints)
+        if (getFillColor() != null) {
+            obj.setColor(getFillColor());
+            obj.fillPolygon(xPoints, yPoints, 3);  // fillPolygon(int[] xPoints, int[] yPoints, int nPoints)
+        }
     }
 }

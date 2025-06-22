@@ -1,13 +1,14 @@
 package shapes;
 
+import interfaces.Drawable;
 import interfaces.Squareable;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Rectangle extends Shape implements Squareable {
+public class Rectangle extends Shape implements Squareable, Drawable {
     private double[] sidePoint;
     private double length;
     private double height;
@@ -161,5 +162,25 @@ public class Rectangle extends Shape implements Squareable {
 
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public void draw(Graphics obj) {
+        obj.setColor(getLineColor());
+        obj.drawRect(  // drawRect(int x, int y, int width, int height)
+                (int) getInitialPoint()[0],
+                (int) getInitialPoint()[1],
+                (int) length,
+                (int) height
+        );
+        if (getFillColor() != null) {
+            obj.setColor(getFillColor());
+            obj.fillRect(  // fillRect(int x, int y, int width, int height)
+                    (int) getInitialPoint()[0],
+                    (int) getInitialPoint()[1],
+                    (int) length,
+                    (int) height
+            );
+        }
     }
 }

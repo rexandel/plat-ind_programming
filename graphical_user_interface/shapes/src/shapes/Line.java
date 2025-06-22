@@ -1,10 +1,12 @@
 package shapes;
 
+import interfaces.Drawable;
+
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Line extends Shape {
+public class Line extends Shape implements Drawable {
     private double[] sidePoint;
 
     public Line(double[] initialPoint, double[] sidePoint) {
@@ -110,5 +112,16 @@ public class Line extends Shape {
 
     public double[] getSidePoint() {
         return sidePoint;
+    }
+
+    @Override
+    public void draw(Graphics obj) {
+        obj.setColor(getLineColor());
+        obj.drawLine(  // drawLine(int x1, int y1, int x2, int y2)
+                (int) getInitialPoint()[0],
+                (int) getInitialPoint()[1],
+                (int) sidePoint[0],
+                (int) sidePoint[1]
+        );
     }
 }

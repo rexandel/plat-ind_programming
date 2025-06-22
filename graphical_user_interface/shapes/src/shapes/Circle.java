@@ -1,12 +1,13 @@
 package shapes;
 
+import interfaces.Drawable;
 import interfaces.Squareable;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Circle extends Shape implements Squareable {
+public class Circle extends Shape implements Squareable, Drawable {
     private double radius;
 
     public Circle(double[] initialPoint, double radius) {
@@ -70,5 +71,25 @@ public class Circle extends Shape implements Squareable {
 
     public double getRadius() {
         return radius;
+    }
+
+    @Override
+    public void draw(Graphics obj) {
+        obj.setColor(getLineColor());
+        obj.drawOval(  // drawOval(int x, int y, int width, int height)
+                (int) (getInitialPoint()[0] - radius),
+                (int) (getInitialPoint()[1] - radius),
+                (int) (2 * radius),
+                (int) (2 * radius)
+        );
+        if (getFillColor() != null) {
+            obj.setColor(getFillColor());
+            obj.fillOval(  // fillOval(int x, int y, int width, int height)
+                    (int) (getInitialPoint()[0] - radius),
+                    (int) (getInitialPoint()[1] - radius),
+                    (int) (2 * radius),
+                    (int) (2 * radius)
+            );
+        }
     }
 }
