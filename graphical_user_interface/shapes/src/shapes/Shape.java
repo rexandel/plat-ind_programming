@@ -1,14 +1,15 @@
 package shapes;
 
 import color.ColorParser;
+import interfaces.Drawable;
 import interfaces.Movable;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 
-public abstract class Shape implements Movable {
+public abstract class Shape implements Movable, Drawable {
     protected double[] initialPoint;
     protected Color lineColor;
     protected Color fillColor;
@@ -134,4 +135,6 @@ public abstract class Shape implements Movable {
     protected Color getFillColor() {
         return fillColor;
     }
+
+    public void draw(Graphics obj) { }
 }
