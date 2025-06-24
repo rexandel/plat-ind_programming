@@ -1,0 +1,93 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam sequenceArrowColor #000000
+skinparam sequenceLifeLineBorderColor #000000
+skinparam sequenceParticipantBorderColor #000000
+
+title Диаграмма последовательности нажатия кнопки (например, Circle)
+
+actor Пользователь as User
+participant "PaintApplication\n(конструктор)" as App
+participant "JButton\n(circleButton)" as Button
+participant "ActionListener\n(анонимный класс)" as Listener
+participant "PaintPanel" as Panel
+participant "JLabel\n(statusLabel)" as Status
+participant "AWT Event\nDispatch Thread" as EDT
+
+== Этап инициализации ==
+
+User -> App : new PaintApplication()
+activate App
+
+App -> Button : new JButton("Circle")
+activate Button
+Button --> App : объект кнопки
+deactivate Button
+
+App -> Listener : new ActionListener() {\n  actionPerformed(ActionEvent e)\n}
+activate Listener
+note right of Listener : Создается анонимный класс\nреализующий ActionListener
+Listener --> App : объект слушателя
+deactivate Listener
+
+App -> Button : addActionListener(listener)
+activate Button
+note right of Button : Регистрация слушателя\nв списке слушателей кнопки
+Button --> App : void
+deactivate Button
+
+App -> Status : new JLabel("Selected shape: " + ...)
+activate Status
+Status --> App : объект метки статуса
+deactivate Status
+
+note over App : Добавление компонентов\nв layout и отображение окна
+
+deactivate App
+
+== Этап обработки события ==
+
+User -> Button : Клик мыши на кнопку "Circle"
+activate Button
+
+Button -> EDT : Генерация ActionEvent
+activate EDT
+note right of EDT : AWT создает ActionEvent\nи помещает в очередь событий
+
+EDT -> Button : processActionEvent()
+Button -> Listener : actionPerformed(ActionEvent e)
+activate Listener
+
+note over Listener : Выполнение кода внутри\nанонимного класса ActionListener
+
+Listener -> Panel : setShapeType(PaintPanel.CIRCLE)
+activate Panel
+note right of Panel : Установка типа фигуры\nв CIRCLE
+Panel --> Listener : void
+deactivate Panel
+
+Listener -> Panel : getCurrentShapeType()
+activate Panel
+Panel --> Listener : "Circle"
+deactivate Panel
+
+Listener -> Status : setText("Selected shape: Circle")
+activate Status
+note right of Status : Обновление текста\nстатусной метки
+Status --> Listener : void
+deactivate Status
+
+note over Status : Компонент перерисовывается\nавтоматически
+
+Listener --> Button : void (завершение actionPerformed)
+deactivate Listener
+
+Button --> EDT : void (завершение обработки)
+EDT --> User : Визуальная обратная связь\n(обновленная метка статуса)
+deactivate EDT
+deactivate Button
+
+note over User, Status : Пользователь видит обновленный\nстатус "Selected shape: Circle"
+
+@enduml

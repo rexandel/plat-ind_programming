@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class PaintPanel extends JPanel {
@@ -18,7 +17,7 @@ public class PaintPanel extends JPanel {
     public static final String TRIANGLE = "Triangle";
     public static final String LINE = "Line";
 
-    private LinkedList<Shape> shapes = new LinkedList<>();
+    private ArrayList<Shape> shapes = new ArrayList<>();
     private Shape currentShape;
     private String currentShapeType = CIRCLE;
     private Color currentLineColor = Color.BLACK;
